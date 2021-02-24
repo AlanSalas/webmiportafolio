@@ -59,6 +59,16 @@ body {
   }
 }
 
+.black {
+  background-color: black;
+  color: var(--primary-color);
+
+  &:hover {
+    background-color: #444444;
+    color: var(--primary-color);
+  }
+}
+
 .input {
   border-radius: 0.5rem !important;
 

@@ -5,6 +5,7 @@ import DefaultLayout from "../layouts/DefaultLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Registro from "../pages/Registro";
+import Dashboard from "../pages/Dashboard";
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
       {
         path: "/registro",
         component: Registro,
+        exact: true,
+      },
+      {
+        path: "/dashboard",
+        component: Dashboard,
         exact: true,
       },
     ],
