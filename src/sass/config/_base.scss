@@ -77,3 +77,12 @@ body {
     padding: 5px 5px !important;
   }
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 1rem;
+}

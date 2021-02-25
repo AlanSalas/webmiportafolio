@@ -1,0 +1,17 @@
+.avatar {
+  border-radius: 100%;
+  width: 9.375rem;
+  height: 9.375rem;
+
+  span {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 0 black;
+  }
+
+  // Flex
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -6,6 +6,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Registro from "../pages/Registro";
 import Dashboard from "../pages/Dashboard";
+import Portfolio from "../pages/Portfolio";
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
       {
         path: "/dashboard",
         component: Dashboard,
+        exact: true,
+      },
+      {
+        path: "/:username",
+        component: Portfolio,
         exact: true,
       },
     ],
