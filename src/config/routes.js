@@ -7,6 +7,9 @@ import Login from "../pages/Login";
 import Registro from "../pages/Registro";
 import Dashboard from "../pages/Dashboard";
 import Portfolio from "../pages/Portfolio";
+import Profile from "../pages/Profile";
+import Experiencies from "../pages/Experiencies";
+import Projects from "../pages/Projects";
 
 const routes = [
   {
@@ -32,6 +35,21 @@ const routes = [
       {
         path: "/dashboard",
         component: Dashboard,
+        exact: true,
+      },
+      {
+        path: "/perfil",
+        component: Profile,
+        exact: true,
+      },
+      {
+        path: "/experiencias",
+        component: Experiencies,
+        exact: true,
+      },
+      {
+        path: "/proyectos",
+        component: Projects,
         exact: true,
       },
       {

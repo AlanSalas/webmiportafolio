@@ -1,54 +1,14 @@
 import React from "react";
-import Avatar from "../components/Common/Avatar";
 import { Row, Col, Divider } from "antd";
-import {
-  LinkOutlined,
-  FacebookOutlined,
-  TwitterOutlined,
-  InstagramOutlined,
-  LinkedinOutlined,
-  YoutubeOutlined,
-  MailOutlined,
-} from "@ant-design/icons";
+import { LinkOutlined } from "@ant-design/icons";
 import WireframeImg from "../assets/wireframe.png";
+import UserInfo from "../components/UserInfo";
 
 const Portfolio = () => {
   return (
     <div className="portfolio">
       <div className="container">
-        <Row justify="center">
-          <Col>
-            <Avatar name="Alan" />
-          </Col>
-        </Row>
-        <Row justify="center" style={{ marginBottom: "3rem" }}>
-          <Col>
-            <div className="portfolio__intro">
-              <h1 className="portfolio__intro-title">Hola mi nombre es Alan Jair Cauich Salas</h1>
-              <h2 className="portfolio__intro-carrer">FullStack Developer</h2>
-              <div className="portfolio__intro-social">
-                <a href="#" target="_blank">
-                  <FacebookOutlined />
-                </a>
-                <a href="#" target="_blank">
-                  <TwitterOutlined />
-                </a>
-                <a href="#" target="_blank">
-                  <InstagramOutlined />
-                </a>
-                <a href="#" target="_blank">
-                  <LinkedinOutlined />
-                </a>
-                <a href="#" target="_blank">
-                  <YoutubeOutlined />
-                </a>
-                <a href="#" target="_blank">
-                  <MailOutlined />
-                </a>
-              </div>
-            </div>
-          </Col>
-        </Row>
+        <UserInfo />
         <Row style={{ marginBottom: "3rem" }}>
           <Divider orientation="left">Acerca de mí</Divider>
           <Col>
