@@ -5,11 +5,14 @@ import DefaultLayout from "../layouts/DefaultLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Registro from "../pages/Registro";
+import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword";
 import Dashboard from "../pages/Dashboard";
 import Portfolio from "../pages/Portfolio";
 import Profile from "../pages/Profile";
 import Experiencies from "../pages/Experiencies";
 import Projects from "../pages/Projects";
+import NotFound from "../pages/NotFound";
 
 const routes = [
   {
@@ -30,6 +33,16 @@ const routes = [
       {
         path: "/registro",
         component: Registro,
+        exact: true,
+      },
+      {
+        path: "/recuperar-contrasena",
+        component: ForgotPassword,
+        exact: true,
+      },
+      {
+        path: "/reestablecer-contrasena/:token",
+        component: ResetPassword,
         exact: true,
       },
       {
@@ -56,6 +69,9 @@ const routes = [
         path: "/:username",
         component: Portfolio,
         exact: true,
+      },
+      {
+        component: NotFound,
       },
     ],
   },

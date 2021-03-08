@@ -13,6 +13,14 @@
     font-size: 5rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
+
+    @media (max-width: 600px) {
+      font-size: 3.5rem;
+    }
+
+    @media (max-width: 330px) {
+      font-size: 3rem;
+    }
   }
 
   &__img {

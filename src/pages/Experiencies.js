@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router";
 import Modal from "../components/Common/Modal";
 import FormExperience from "../components/FormExperience";
 import { Space, Table, Tooltip } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
+import useAuth from "../hooks/useAuth";
 
 const Experiencies = () => {
+  const { isAuth } = useAuth();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [contentModal, setContentModal] = useState(null);
@@ -102,6 +105,16 @@ const Experiencies = () => {
       ),
     },
   ];
+
+  if (!isAuth) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+        }}
+      />
+    );
+  }
 
   return (
     <div className="data">

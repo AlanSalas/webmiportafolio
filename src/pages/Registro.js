@@ -8,7 +8,7 @@ const Registro = () => {
     <div className="credentials">
       <div className="container">
         <Row justify="space-between">
-          <Col lg={10} xl={10}>
+          <Col xs={24} md={24} lg={10} xl={10}>
             <img className="credentials__img" src={Person} alt="person" />
           </Col>
           <Col xs={24} md={24} lg={12} xl={12}>

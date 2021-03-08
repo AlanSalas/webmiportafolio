@@ -1,10 +1,24 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { Row, Col, Statistic } from "antd";
 import { Link } from "react-router-dom";
 import { FolderOutlined, SolutionOutlined } from "@ant-design/icons";
 import DashboardImg from "../assets/dashboard.svg";
+import useAuth from "../hooks/useAuth";
 
 const Dashboard = () => {
+  const { isAuth } = useAuth();
+
+  if (!isAuth) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+        }}
+      />
+    );
+  }
+
   return (
     <div className="dashboard">
       <div className="container">
