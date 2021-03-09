@@ -5,6 +5,7 @@ import DefaultLayout from "../layouts/DefaultLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Registro from "../pages/Registro";
+import Activation from "../pages/Activation";
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import Dashboard from "../pages/Dashboard";
@@ -33,6 +34,11 @@ const routes = [
       {
         path: "/registro",
         component: Registro,
+        exact: true,
+      },
+      {
+        path: "/activacion/:token",
+        component: Activation,
         exact: true,
       },
       {

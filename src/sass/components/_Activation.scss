@@ -1,0 +1,31 @@
+.activation {
+  height: 80vh;
+  text-align: center;
+
+  // Flex
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .icon {
+    font-size: 5rem !important;
+    margin-bottom: 1rem;
+  }
+
+  .red {
+    color: red;
+  }
+
+  .green {
+    color: green;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  a {
+    display: inline-block;
+  }
+}
