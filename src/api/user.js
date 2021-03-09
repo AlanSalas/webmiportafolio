@@ -1,10 +1,10 @@
 import API from "./config";
 
-export const register = async () => {
+export const register = async data => {
   try {
-    const response = await API.post(`register`);
-    console.log(response);
+    const response = await API.post(`register`, data);
+    return response;
   } catch (err) {
-    console.log(err);
+    return err.response;
   }
 };
