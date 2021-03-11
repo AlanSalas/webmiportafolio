@@ -1,11 +1,10 @@
 .avatar {
   border-radius: 100%;
-  width: 9.375rem;
-  height: 9.375rem;
+  background-color: var(--avatar-background);
+  display: block;
 
   span {
     color: #fff;
-    font-size: 1.5rem;
     font-weight: 700;
     text-shadow: 1px 1px 0 black;
   }
@@ -14,4 +13,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &.active {
+    border: 1px solid var(--primary-dark);
+  }
 }

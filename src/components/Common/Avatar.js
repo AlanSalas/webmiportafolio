@@ -1,20 +1,14 @@
-import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
-const Avatar = ({ name }) => {
-  const colors = [
-    "rgb(170, 45, 64)",
-    "rgb(152, 131, 219)",
-    "rgb(4, 70, 106)",
-    "rgb(241, 138, 179",
-    "rgb(112, 147, 103)",
-    "rgb(231, 54, 5)",
-  ];
-
-  const [color] = useState(colors[Math.floor(Math.random() * 6)]);
+const Avatar = ({ name, size, fontSize }) => {
+  const location = useLocation();
 
   return (
-    <div className="avatar" style={{ backgroundColor: color }}>
-      <span>{name.charAt(0).toUpperCase()}</span>
+    <div
+      className={`avatar ${location.pathname === "/perfil" ? "active" : ""}`}
+      style={{ height: size, width: size }}
+    >
+      <span style={{ fontSize: fontSize }}>{name.charAt(0).toUpperCase()}</span>
     </div>
   );
 };

@@ -15,7 +15,7 @@ const UserInfo = () => {
     <>
       <Row justify="center">
         <Col>
-          <Avatar name="Alan" />
+          <Avatar name="Alan" size="9rem" fontSize="3rem" />
         </Col>
       </Row>
       <Row justify="center" style={{ marginBottom: "3rem" }}>

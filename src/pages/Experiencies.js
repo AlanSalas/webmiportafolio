@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Redirect } from "react-router";
 import Modal from "../components/Common/Modal";
 import FormExperience from "../components/FormExperience";
+import Fade from "../components/Common/Fade";
 import { Space, Table, Tooltip } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
 import useAuth from "../hooks/useAuth";
@@ -111,22 +112,24 @@ const Experiencies = () => {
   }
 
   return (
-    <div className="data">
-      <div className="container">
-        <Table
-          dataSource={dataSource}
-          columns={columns}
-          pagination={{ defaultCurrent: 1, defaultPageSize: 5 }}
-        />
-        <Modal
-          title={titleModal}
-          isVisibleModal={isVisibleModal}
-          setIsVisibleModal={setIsVisibleModal}
-        >
-          {contentModal}
-        </Modal>
+    <Fade>
+      <div className="data">
+        <div className="container">
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            pagination={{ defaultCurrent: 1, defaultPageSize: 5 }}
+          />
+          <Modal
+            title={titleModal}
+            isVisibleModal={isVisibleModal}
+            setIsVisibleModal={setIsVisibleModal}
+          >
+            {contentModal}
+          </Modal>
+        </div>
       </div>
-    </div>
+    </Fade>
   );
 };
 

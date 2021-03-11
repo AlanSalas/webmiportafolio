@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router";
+import Fade from "../components/Common/Fade";
 import UserInfo from "../components/UserInfo";
 import useAuth from "../hooks/useAuth";
 
@@ -11,10 +12,12 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile">
-      <UserInfo />
-      <button className="button">Editar perfil</button>
-    </div>
+    <Fade>
+      <div className="profile">
+        <UserInfo />
+        <button className="button">Editar perfil</button>
+      </div>
+    </Fade>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router";
 import Modal from "../components/Common/Modal";
+import Fade from "../components/Common/Fade";
 import { Space, Table, Tooltip } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
 import FormProject from "../components/FormProject";
@@ -94,22 +95,24 @@ const Projects = () => {
   }
 
   return (
-    <div className="data">
-      <div className="container">
-        <Table
-          dataSource={dataSource}
-          columns={columns}
-          pagination={{ defaultCurrent: 1, defaultPageSize: 5 }}
-        />
+    <Fade>
+      <div className="data">
+        <div className="container">
+          <Table
+            dataSource={dataSource}
+            columns={columns}
+            pagination={{ defaultCurrent: 1, defaultPageSize: 5 }}
+          />
+        </div>
+        <Modal
+          title={titleModal}
+          isVisibleModal={isVisibleModal}
+          setIsVisibleModal={setIsVisibleModal}
+        >
+          {contentModal}
+        </Modal>
       </div>
-      <Modal
-        title={titleModal}
-        isVisibleModal={isVisibleModal}
-        setIsVisibleModal={setIsVisibleModal}
-      >
-        {contentModal}
-      </Modal>
-    </div>
+    </Fade>
   );
 };
 
