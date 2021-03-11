@@ -10,13 +10,7 @@ const Dashboard = () => {
   const { isAuth } = useAuth();
 
   if (!isAuth) {
-    return (
-      <Redirect
-        to={{
-          pathname: "/login",
-        }}
-      />
-    );
+    return <Redirect to="/login" />;
   }
 
   return (
@@ -31,7 +25,9 @@ const Dashboard = () => {
                 value={0}
                 prefix={<SolutionOutlined />}
               />
-              <Link className="button black">Ver experencias</Link>
+              <Link to="/experiencias" className="button black">
+                Ver experencias
+              </Link>
             </div>
           </Col>
           <Col xs={24} md={12} lg={8} xl={8}>
@@ -42,7 +38,9 @@ const Dashboard = () => {
                 value={0}
                 prefix={<FolderOutlined />}
               />
-              <Link className="button black">Ver proyectos</Link>
+              <Link to="/proyectos" className="button black">
+                Ver proyectos
+              </Link>
             </div>
           </Col>
         </Row>

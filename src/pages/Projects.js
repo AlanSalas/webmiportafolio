@@ -90,13 +90,7 @@ const Projects = () => {
   ];
 
   if (!isAuth) {
-    return (
-      <Redirect
-        to={{
-          pathname: "/login",
-        }}
-      />
-    );
+    return <Redirect to="/login" />;
   }
 
   return (

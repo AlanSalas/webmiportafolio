@@ -1,9 +1,17 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { Row, Col } from "antd";
 import FormLogin from "../components/FormLogin";
 import LoginImg from "../assets/login.svg";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
+  const { isAuth } = useAuth();
+
+  if (isAuth) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <div className="credentials">
       <div className="container">

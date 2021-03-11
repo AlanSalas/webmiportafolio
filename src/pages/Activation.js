@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useHistory, Redirect } from "react-router-dom";
-import { willExpireToken, activateUser } from "../api/auth";
+import { willExpireToken, activateUser, sendEmailToActivate } from "../api/auth";
+import jwtDecode from "jwt-decode";
 import { Row, Col, message } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
@@ -58,12 +59,31 @@ const ValidToken = ({ token }) => {
   );
 };
 
-const InvalidToken = () => {
+const InvalidToken = ({ token }) => {
+  const history = useHistory();
+  const decodeToken = jwtDecode(token);
+
+  const handleSendEmail = async () => {
+    try {
+      const response = await sendEmailToActivate(decodeToken.id);
+      if (response.status === 200) {
+        message.success(response.data.message);
+      } else {
+        message.error(response.data.err);
+        history.push("/login");
+      }
+    } catch (err) {
+      message.error(err);
+    }
+  };
+
   return (
     <>
       <CloseOutlined className="icon red" />
       <h1>Este link ha expirado</h1>
-      <button className="button">Generar nuevo link</button>
+      <button className="button" onClick={handleSendEmail}>
+        Generar nuevo link
+      </button>
     </>
   );
 };

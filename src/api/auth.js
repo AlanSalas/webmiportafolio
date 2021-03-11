@@ -17,3 +17,21 @@ export const activateUser = async token => {
     return err.response;
   }
 };
+
+export const sendEmailToActivate = async id => {
+  try {
+    const response = await API.post(`/activation-email/${id}`);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+};
+
+export const login = async data => {
+  try {
+    const response = await API.post(`login`, data);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+};

@@ -7,13 +7,7 @@ const Profile = () => {
   const { isAuth } = useAuth();
 
   if (!isAuth) {
-    return (
-      <Redirect
-        to={{
-          pathname: "/login",
-        }}
-      />
-    );
+    return <Redirect to="/login" />;
   }
 
   return (
