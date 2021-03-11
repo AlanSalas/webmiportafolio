@@ -14,6 +14,7 @@ import Profile from "../pages/Profile";
 import Experiencies from "../pages/Experiencies";
 import Projects from "../pages/Projects";
 import NotFound from "../pages/NotFound";
+import ServerError from "../pages/ServerError";
 
 const routes = [
   {
@@ -74,6 +75,11 @@ const routes = [
       {
         path: "/:username",
         component: Portfolio,
+        exact: true,
+      },
+      {
+        path: "/error/500",
+        component: ServerError,
         exact: true,
       },
       {

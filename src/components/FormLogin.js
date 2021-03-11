@@ -37,7 +37,7 @@ const FormRegistro = () => {
       }
     } catch (err) {
       setLoading(false);
-      message.error(err);
+      history.push("/error/500");
     }
   };
 
