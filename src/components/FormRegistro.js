@@ -58,7 +58,8 @@ const FormRegistro = () => {
         setLoading(false);
       }
     } catch (err) {
-      message.error(err);
+      setLoading(false);
+      history.push("/error/500");
     }
   };
 

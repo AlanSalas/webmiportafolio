@@ -5,8 +5,9 @@ import jwtDecode from "jwt-decode";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("token") || null);
+  const [isAuth, setIsAuth] = useState(null);
   const [user, setUser] = useState(null);
+  const [reload, setReload] = useState(false);
 
   const login = token => {
     setIsAuth(token);
@@ -22,32 +23,36 @@ const AuthProvider = ({ children }) => {
 
   const watchLocalStorage = useCallback(() => {
     window.addEventListener("storage", () => {
-      if (!isAuth) {
+      const token = localStorage.getItem("token");
+      if (!token) {
         logOut();
       }
     });
-  }, [isAuth]);
+  }, []);
 
   const verifyLogin = useCallback(() => {
-    if (isAuth) {
-      if (willExpireToken(isAuth)) {
+    const token = localStorage.getItem("token");
+    if (token) {
+      if (willExpireToken(token)) {
         logOut();
       } else {
-        setIsAuth(isAuth);
-        setUser(user);
+        login(token);
       }
     } else {
       logOut();
     }
-  }, [isAuth, user]);
+  }, []);
 
   useEffect(() => {
     verifyLogin();
     watchLocalStorage();
-  }, [isAuth, verifyLogin, watchLocalStorage]);
+    setReload(false);
+  }, [reload, setReload, verifyLogin, watchLocalStorage]);
 
   return (
-    <AuthContext.Provider value={{ isAuth, user, login, logOut }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ isAuth, user, login, logOut, setReload }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

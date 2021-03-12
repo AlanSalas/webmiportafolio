@@ -8,7 +8,7 @@ import { MenuOutlined, PoweroffOutlined, UserOutlined } from "@ant-design/icons"
 import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
-  const { isAuth, logOut } = useAuth();
+  const { isAuth, logOut, setReload } = useAuth();
   const location = useLocation();
   const history = useHistory();
 
@@ -19,7 +19,12 @@ const Navbar = () => {
           <img className="navbar__brand" src={Logo} alt="webmiportafolio" />
         </Link>
         {isAuth ? (
-          <LinksLoggedIn location={location} history={history} logOut={logOut} />
+          <LinksLoggedIn
+            location={location}
+            history={history}
+            logOut={logOut}
+            setReload={setReload}
+          />
         ) : (
           <LinksLoggedOut location={location} />
         )}
@@ -31,9 +36,10 @@ const Navbar = () => {
   );
 };
 
-const LinksLoggedIn = ({ location, history, logOut }) => {
+const LinksLoggedIn = ({ location, history, logOut, setReload }) => {
   const handleLogOut = () => {
     logOut();
+    setReload(true);
     message.success("Hasta luego.");
     history.push("/login");
   };

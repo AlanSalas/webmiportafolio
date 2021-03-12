@@ -35,3 +35,21 @@ export const login = async data => {
     return err.response;
   }
 };
+
+export const forgotPassword = async email => {
+  try {
+    const response = await API.post(`forgot-password`, { email });
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+};
+
+export const updatePassword = async (password, token) => {
+  try {
+    const response = await API.put("update-password", { password }, { headers: { token } });
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+};

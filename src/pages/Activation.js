@@ -44,7 +44,7 @@ const ValidToken = ({ token }) => {
         history.push("/login");
       }
     } catch (err) {
-      message.error(err);
+      history.push("/error/500");
     }
   };
 
@@ -73,7 +73,7 @@ const InvalidToken = ({ token }) => {
         history.push("/login");
       }
     } catch (err) {
-      message.error(err);
+      history.push("/error/500");
     }
   };
 

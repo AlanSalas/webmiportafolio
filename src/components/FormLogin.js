@@ -13,7 +13,7 @@ const FormRegistro = () => {
   });
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const { login } = useAuth();
+  const { login, setReload } = useAuth();
 
   const handleChange = e => {
     setData({
@@ -30,6 +30,7 @@ const FormRegistro = () => {
       if (response.status === 200) {
         message.success("Bienvenido.");
         login(response.data.accessToken);
+        setReload(true);
         history.push("/dashboard");
       } else {
         setLoading(false);
