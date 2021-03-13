@@ -6,19 +6,18 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(null);
-  const [user, setUser] = useState(null);
   const [reload, setReload] = useState(false);
 
   const login = token => {
-    setIsAuth(token);
-    setUser(jwtDecode(token));
     localStorage.setItem("token", token);
+    localStorage.setItem("userId", jwtDecode(token).id);
+    setIsAuth(token);
   };
 
   const logOut = () => {
-    setIsAuth(null);
-    setUser(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    setIsAuth(null);
   };
 
   const watchLocalStorage = useCallback(() => {
@@ -50,7 +49,7 @@ const AuthProvider = ({ children }) => {
   }, [reload, setReload, verifyLogin, watchLocalStorage]);
 
   return (
-    <AuthContext.Provider value={{ isAuth, user, login, logOut, setReload }}>
+    <AuthContext.Provider value={{ isAuth, login, logOut, setReload }}>
       {children}
     </AuthContext.Provider>
   );
