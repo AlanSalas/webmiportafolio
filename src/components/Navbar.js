@@ -1,14 +1,14 @@
-import React from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import Logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
 import Avatar from "../components/Common/Avatar";
 import { message } from "antd";
-import { MenuOutlined, PoweroffOutlined, UserOutlined } from "@ant-design/icons";
+import { MenuOutlined, PoweroffOutlined } from "@ant-design/icons";
 import useAuth from "../hooks/useAuth";
+import { getUserData, getProfileImage } from "../api/user";
 
 const Navbar = () => {
-  const { isAuth, logOut, setReload } = useAuth();
+  const { isAuth, logOut } = useAuth();
   const location = useLocation();
   const history = useHistory();
 
@@ -19,12 +19,7 @@ const Navbar = () => {
           <img className="navbar__brand" src={Logo} alt="webmiportafolio" />
         </Link>
         {isAuth ? (
-          <LinksLoggedIn
-            location={location}
-            history={history}
-            logOut={logOut}
-            setReload={setReload}
-          />
+          <LinksLoggedIn location={location} history={history} logOut={logOut} />
         ) : (
           <LinksLoggedOut location={location} />
         )}
@@ -36,13 +31,35 @@ const Navbar = () => {
   );
 };
 
-const LinksLoggedIn = ({ location, history, logOut, setReload }) => {
+const LinksLoggedIn = ({ location, history, logOut }) => {
+  const [userId] = useState(localStorage.getItem("userId"));
+  const [name, setName] = useState("");
+  const [avatar, setAvatar] = useState(null);
+
   const handleLogOut = () => {
     logOut();
-    setReload(true);
     message.success("Hasta luego.");
     history.push("/login");
   };
+
+  useEffect(() => {
+    const getImage = async () => {
+      try {
+        const response = await getUserData(userId);
+        setName(response.data.user.name);
+        if (response.data.user.avatar) {
+          const image = await getProfileImage("users", response.data.user.avatar);
+          setAvatar(image.request.responseURL);
+        } else {
+          setAvatar(null);
+        }
+      } catch (err) {
+        history.push("/error/500");
+      }
+    };
+
+    getImage();
+  }, [history, userId]);
 
   return (
     <div className="navbar__links">
@@ -59,7 +76,7 @@ const LinksLoggedIn = ({ location, history, logOut, setReload }) => {
         Portafolio
       </Link>
       <Link to="/perfil" className={"navbar__link"}>
-        <Avatar name="Alan" size="2rem" fontSize="1rem" />
+        <Avatar name={name} size="2rem" fontSize="1rem" avatar={avatar} />
       </Link>
       <PoweroffOutlined className="navbar__link logout" onClick={handleLogOut} />
     </div>
