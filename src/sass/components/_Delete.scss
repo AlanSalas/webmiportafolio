@@ -1,0 +1,13 @@
+.delete-item {
+  text-align: center;
+
+  h1 {
+    color: var(--error);
+  }
+
+  &__actions {
+    &-cancel {
+      margin-right: 1rem;
+    }
+  }
+}

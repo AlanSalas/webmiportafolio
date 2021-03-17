@@ -38,7 +38,7 @@ const UserInfo = ({ userId, reload, setReload }) => {
     setReload(false);
 
     getData();
-  }, [history, userId, reload]);
+  }, [history, userId, reload, setReload]);
 
   return (
     <>
@@ -58,27 +58,47 @@ const UserInfo = ({ userId, reload, setReload }) => {
             </h2>
             <div className="portfolio__intro-social">
               {userData.facebook && (
-                <a href={`https://www.facebook.com/${userData.facebook}`} target="_blank">
+                <a
+                  href={`https://www.facebook.com/${userData.facebook}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <FacebookOutlined />
                 </a>
               )}
               {userData.twitter && (
-                <a href={`https://www.twitter.com/${userData.twitter}`} target="_blank">
+                <a
+                  href={`https://www.twitter.com/${userData.twitter}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <TwitterOutlined />
                 </a>
               )}
               {userData.instagram && (
-                <a href={`https://www.instagram.com/${userData.instagram}`} target="_blank">
+                <a
+                  href={`https://www.instagram.com/${userData.instagram}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <InstagramOutlined />
                 </a>
               )}
               {userData.linkedin && (
-                <a href={`https://www.linkedin.com/in/${userData.linkedin}`} target="_blank">
+                <a
+                  href={`https://www.linkedin.com/in/${userData.linkedin}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <LinkedinOutlined />
                 </a>
               )}
               {userData.youtube && (
-                <a href={`https://www.youtube.com/channel/${userData.youtube}`} target="_blank">
+                <a
+                  href={`https://www.youtube.com/channel/${userData.youtube}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <YoutubeOutlined />
                 </a>
               )}

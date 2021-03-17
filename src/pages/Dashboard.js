@@ -1,14 +1,34 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Redirect, useHistory } from "react-router-dom";
 import { Row, Col, Statistic } from "antd";
 import { Link } from "react-router-dom";
 import Fade from "../components/Common/Fade";
 import { FolderOutlined, SolutionOutlined } from "@ant-design/icons";
 import DashboardImg from "../assets/dashboard.svg";
 import useAuth from "../hooks/useAuth";
+import { countProjects } from "../api/project";
+import { countExperiences } from "../api/experience";
 
 const Dashboard = () => {
+  const [totalProjects, setTotalProjects] = useState("");
+  const [totalExperiences, setTotalExperiences] = useState("");
   const { isAuth } = useAuth();
+  const history = useHistory();
+
+  useEffect(() => {
+    const getTotals = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const projects = await countProjects(token);
+        const experiences = await countExperiences(token);
+        setTotalProjects(projects.data.total);
+        setTotalExperiences(experiences.data.total);
+      } catch (err) {
+        history.push("/error/500");
+      }
+    };
+    getTotals();
+  }, [history]);
 
   if (!isAuth) {
     return <Redirect to="/login" />;
@@ -24,7 +44,7 @@ const Dashboard = () => {
                 <Statistic
                   title="Experiencias"
                   valueStyle={{ marginBottom: "1rem" }}
-                  value={0}
+                  value={totalExperiences}
                   prefix={<SolutionOutlined />}
                 />
                 <Link to="/experiencias" className="button black">
@@ -37,7 +57,7 @@ const Dashboard = () => {
                 <Statistic
                   title="Proyectos"
                   valueStyle={{ marginBottom: "1rem" }}
-                  value={0}
+                  value={totalProjects}
                   prefix={<FolderOutlined />}
                 />
                 <Link to="/proyectos" className="button black">

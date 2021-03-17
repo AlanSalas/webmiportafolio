@@ -88,3 +88,36 @@ export const youtubeChannelRules = [
     message: "Channel Id invalido.",
   },
 ];
+
+export const urlRules = [
+  {
+    pattern: /([--:\w?@%&+~#=]*\.[a-z]{2,4}\/{0,2})((?:[?&](?:\w+)=(?:\w+))+|[--:\w?@%&+~#=]+)?/g,
+    message: "Url invalida.",
+  },
+  {
+    required: true,
+    message: "Url es requerida.",
+  },
+];
+
+export const nameProjectRules = [
+  {
+    required: true,
+    message: "Nombre es requerido.",
+  },
+];
+
+export const descriptionRules = [
+  {
+    min: 50,
+    message: "Descripción demasiado corta.",
+  },
+  {
+    max: 350,
+    message: "Descripción demasiado larga.",
+  },
+  {
+    required: true,
+    message: "Descripción es requerido.",
+  },
+];

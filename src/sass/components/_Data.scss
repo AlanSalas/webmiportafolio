@@ -1,16 +1,36 @@
 .data {
   padding: 2rem 1rem;
 
-  &__edit {
-    font-size: 1.5rem;
+  .btn {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    outline: none;
   }
 
-  &__delete {
+  .edit {
+    color: #1890ff;
+    font-size: 1.5rem;
+
+    &:hover {
+      color: #69c0ff;
+    }
+  }
+
+  .delete {
     color: #f5222d;
     font-size: 1.5rem;
 
     &:hover {
       color: #ff4d4f;
+    }
+  }
+
+  &__form {
+    text-align: center;
+
+    .ant-spin-dot-item {
+      background-color: black;
     }
   }
 

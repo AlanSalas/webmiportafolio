@@ -29,7 +29,7 @@ const FormEditProfile = ({ userData, setReload, setIsVisibleModal }) => {
     };
 
     form.avatar ? getUserImg() : setAvatar(null);
-  }, [form.avatar]);
+  }, [form.avatar, history]);
 
   const initialValues = {
     name: form.name,
