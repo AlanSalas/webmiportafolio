@@ -59,11 +59,32 @@ export const lastNameRules = [
 
 export const usernameRules = [
   {
-    pattern: /^([A-Za-z0-9]){4,20}$/gm,
+    pattern: /[a-zA-Z][a-zA-Z0-9-_]{3,32}/gi,
     message: "Username invalido.",
   },
   {
     required: true,
     message: "Username es requerido.",
+  },
+];
+
+export const usernameSocialRules = [
+  {
+    pattern: /[a-zA-Z][a-zA-Z0-9-_]{3,32}/gi,
+    message: "Username invalido.",
+  },
+];
+
+export const positionRules = [
+  {
+    required: true,
+    message: "Puesto es requerido.",
+  },
+];
+
+export const youtubeChannelRules = [
+  {
+    pattern: /[a-zA-Z][a-zA-Z0-9-_]{3,32}/gi,
+    message: "Channel Id invalido.",
   },
 ];

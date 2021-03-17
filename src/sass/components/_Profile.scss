@@ -1,4 +1,29 @@
 .profile {
   padding: 2rem 1rem;
   text-align: center;
+
+  &__form {
+    text-align: center;
+
+    .ant-spin-dot-item {
+      background-color: black;
+    }
+  }
 }
+
+.ant-input-group-addon {
+  &:first-child {
+    border-radius: .5rem 0 0 .5rem !important;
+    padding: 9px 11px !important;
+  }
+}
+
+.ant-input-group {
+  .ant-input {    
+    &:last-child {
+      border-radius: 0 .5rem .5rem 0;
+      padding: 9px 11px;
+    }
+  } 
+}
+

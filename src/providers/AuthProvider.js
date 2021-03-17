@@ -5,7 +5,9 @@ import jwtDecode from "jwt-decode";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(null);
+  const [isAuth, setIsAuth] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : null
+  );
   const [reload, setReload] = useState(false);
 
   const login = token => {
