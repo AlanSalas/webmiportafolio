@@ -7,7 +7,7 @@ import { MenuOutlined, PoweroffOutlined } from "@ant-design/icons";
 import useAuth from "../hooks/useAuth";
 import { getUserData, getProfileImage } from "../api/user";
 
-const Navbar = () => {
+const Navbar = ({ reload, setReload }) => {
   const { isAuth, logOut } = useAuth();
   const location = useLocation();
   const history = useHistory();
@@ -19,7 +19,13 @@ const Navbar = () => {
           <img className="navbar__brand" src={Logo} alt="webmiportafolio" />
         </Link>
         {isAuth ? (
-          <LinksLoggedIn location={location} history={history} logOut={logOut} />
+          <LinksLoggedIn
+            location={location}
+            history={history}
+            logOut={logOut}
+            reload={reload}
+            setReload={setReload}
+          />
         ) : (
           <LinksLoggedOut location={location} />
         )}
@@ -31,7 +37,7 @@ const Navbar = () => {
   );
 };
 
-const LinksLoggedIn = ({ location, history, logOut }) => {
+const LinksLoggedIn = ({ location, history, logOut, reload, setReload }) => {
   const [userId] = useState(localStorage.getItem("userId"));
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState(null);
@@ -59,7 +65,8 @@ const LinksLoggedIn = ({ location, history, logOut }) => {
     };
 
     getImage();
-  }, [history, userId]);
+    setReload(false);
+  }, [history, userId, reload, setReload]);
 
   return (
     <div className="navbar__links">

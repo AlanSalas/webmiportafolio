@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import Modal from "../components/Common/Modal";
 import Fade from "../components/Common/Fade";
 import { message, Space, Table, Tooltip } from "antd";
@@ -9,14 +9,14 @@ import Delete from "../components/Common/Delete";
 import useAuth from "../hooks/useAuth";
 import { getProjects, deleteProject } from "../api/project";
 
-const Projects = () => {
+const Projects = ({ reload, setReload }) => {
   const { isAuth } = useAuth();
   const [userId] = useState(localStorage.getItem("userId"));
   const [data, setData] = useState(null);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [contentModal, setContentModal] = useState(null);
-  const [reload, setReload] = useState(false);
+  const history = useHistory();
 
   const openModalEdit = project => {
     setIsVisibleModal(true);
@@ -39,7 +39,7 @@ const Projects = () => {
       setIsVisibleModal(false);
       setReload(true);
     } catch (err) {
-      console.log(err);
+      history.push("/error/500");
     }
   };
 
@@ -66,7 +66,7 @@ const Projects = () => {
         });
         setData(projects);
       } catch (err) {
-        console.log(err);
+        history.push("/error/500");
       }
     };
     getData();

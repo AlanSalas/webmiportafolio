@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import Fade from "../components/Common/Fade";
 import UserInfo from "../components/UserInfo";
 import Modal from "../components/Common/Modal";
@@ -7,7 +7,7 @@ import FormEditProfile from "../components/FormEditProfile";
 import useAuth from "../hooks/useAuth";
 import { getUserData } from "../api/user";
 
-const Profile = () => {
+const Profile = ({ reload, setReload }) => {
   const [userId] = useState(localStorage.getItem("userId"));
   const [userData, setUserData] = useState({
     id: null,
@@ -24,7 +24,7 @@ const Profile = () => {
   const [title, setTitle] = useState("");
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [contentModal, setContentModal] = useState(null);
-  const [reload, setReload] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     const getData = async () => {
@@ -43,11 +43,13 @@ const Profile = () => {
           youtube: user.youtube || "",
           avatar: user.avatar || "",
         });
-      } catch (err) {}
+      } catch (err) {
+        history.push("/error/500");
+      }
     };
 
     getData();
-  }, [userId]);
+  }, [userId, history]);
 
   const openModalEdit = () => {
     setTitle("Editar");

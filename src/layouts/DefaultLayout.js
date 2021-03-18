@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Layout, Row, Col } from "antd";
 import { HeartFilled } from "@ant-design/icons";
@@ -7,15 +7,16 @@ import Navbar from "../components/Navbar";
 const { Header, Content, Footer } = Layout;
 
 const DefaultLayout = ({ routes }) => {
+  const [reload, setReload] = useState(false);
   const location = useLocation();
 
   return (
     <Layout>
       <Header className="header">
-        <Navbar />
+        <Navbar reload={reload} setReload={setReload} />
       </Header>
       <Content className="content">
-        <LoadRoute routes={routes} />
+        <LoadRoute routes={routes} reload={reload} setReload={setReload} />
       </Content>
       {location.pathname === "/" ? (
         <Footer className="footer">
