@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Avatar from "../Common/Avatar";
+import NoImage from "../../assets/no-image.png";
 import { useDropzone } from "react-dropzone";
 
 const UploadImage = ({ avatar, setAvatar }) => {
@@ -31,9 +32,9 @@ const UploadImage = ({ avatar, setAvatar }) => {
     <div className="upload-image" {...getRootProps()}>
       <input {...getInputProps()} />
       {isDragActive ? (
-        <Avatar name="Alan" size="4rem" fontSize="1.5rem" />
+        <Avatar size="4rem" avatar={NoImage} />
       ) : (
-        <Avatar name="Alan" size="4rem" avatar={avatarUrl} />
+        <Avatar size="4rem" avatar={avatarUrl ? avatarUrl : NoImage} />
       )}
     </div>
   );
