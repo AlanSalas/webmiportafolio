@@ -26,6 +26,15 @@
     }
   }
 
+  &__add {
+    margin-bottom: 1.5rem;
+
+    // Flex
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
   &__form {
     text-align: center;
 

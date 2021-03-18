@@ -18,6 +18,12 @@ const Projects = ({ reload, setReload }) => {
   const [contentModal, setContentModal] = useState(null);
   const history = useHistory();
 
+  const openModalAdd = () => {
+    setIsVisibleModal(true);
+    setTitleModal("Nuevo proyecto");
+    setContentModal(<FormProject setIsVisibleModal={setIsVisibleModal} setReload={setReload} />);
+  };
+
   const openModalEdit = project => {
     setIsVisibleModal(true);
     setTitleModal(`Editar ${project.name}`);
@@ -71,7 +77,7 @@ const Projects = ({ reload, setReload }) => {
     };
     getData();
     setReload(false);
-  }, [reload, userId]);
+  }, [reload, setReload, userId, history]);
 
   const columns = [
     {
@@ -113,6 +119,11 @@ const Projects = ({ reload, setReload }) => {
     <Fade>
       <div className="data">
         <div className="container">
+          <div className="data__add">
+            <button className="button green" onClick={openModalAdd}>
+              Nuevo
+            </button>
+          </div>
           <Table
             dataSource={data}
             columns={columns}

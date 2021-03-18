@@ -27,6 +27,23 @@ export const getProjectImage = async (type, image) => {
   }
 };
 
+export const addProject = async (image, data, token) => {
+  try {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("url", data.url);
+    formData.append("description", data.description);
+    if (image) {
+      formData.append("image", image.file, image.file.name);
+    }
+
+    const response = await API.post("project", formData, { headers: { token } });
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+};
+
 export const updateProject = async (image, data, token) => {
   try {
     const formData = new FormData();

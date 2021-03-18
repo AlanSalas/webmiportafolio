@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import UploadImage from "../components/Common/UploadImage";
 import { Row, Col, Form, Input, Spin, message } from "antd";
 import { FolderOutlined, LinkOutlined } from "@ant-design/icons";
-import { getProjectImage, updateProject } from "../api/project";
+import { getProjectImage, addProject, updateProject } from "../api/project";
 import { nameProjectRules, urlRules, descriptionRules } from "../rules/formRules";
 
 const FormProject = ({ project, setIsVisibleModal, setReload }) => {
@@ -17,6 +18,8 @@ const FormProject = ({ project, setIsVisibleModal, setReload }) => {
           description: "",
         }
   );
+  const [form] = Form.useForm();
+  const history = useHistory();
 
   useEffect(() => {
     const getImage = async () => {
@@ -40,7 +43,17 @@ const FormProject = ({ project, setIsVisibleModal, setReload }) => {
     });
   };
 
-  const onFinish = async () => {
+  const handleReset = () => {
+    setFormProject({
+      name: "",
+      url: "",
+      description: "",
+    });
+    setImage(null);
+    form.resetFields();
+  };
+
+  const onFinishUpdate = async () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
@@ -53,14 +66,43 @@ const FormProject = ({ project, setIsVisibleModal, setReload }) => {
       }
     } catch (err) {
       setLoading(false);
-      // history.push("/error/500");
+      history.push("/error/500");
+    }
+  };
+
+  const onFinishAdd = async () => {
+    try {
+      setLoading(true);
+      if (!image) {
+        message.error("Favor de ingresar una imagen relacionada a tu proyecto.");
+        setLoading(false);
+        return;
+      } else {
+        const token = localStorage.getItem("token");
+        const response = await addProject(image, formProject, token);
+        if (response.status === 200) {
+          message.success(response.data.message);
+          setLoading(false);
+          setIsVisibleModal(false);
+          setReload(true);
+          handleReset();
+        }
+      }
+    } catch (err) {
+      setLoading(false);
+      history.push("/error/500");
     }
   };
 
   return (
     <div className="data__form">
       <UploadImage avatar={image} setAvatar={setImage} />
-      <Form onFinish={onFinish} initialValues={initialValues} noValidate>
+      <Form
+        form={form}
+        onFinish={project ? onFinishUpdate : onFinishAdd}
+        initialValues={initialValues}
+        noValidate
+      >
         <Row>
           <Col xs={24} md={24} lg={24}>
             <Form.Item name="name" rules={nameProjectRules} hasFeedback>

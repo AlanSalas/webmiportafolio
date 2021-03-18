@@ -68,6 +68,15 @@ body {
   }
 }
 
+.green {
+  background-color: #389e0d;
+  color: #ffffff;
+
+  &:hover {
+    background-color: #52c41a;
+  }
+}
+
 .input {
   border-radius: 0.5rem !important;
 
