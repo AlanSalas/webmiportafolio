@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Redirect, useHistory } from "react-router";
 import Modal from "../components/Common/Modal";
 import Fade from "../components/Common/Fade";
-import { message, Space, Table, Tooltip } from "antd";
+import { message, Space, Table } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
 import FormProject from "../components/FormProject";
 import Delete from "../components/Common/Delete";
@@ -96,16 +96,12 @@ const Projects = ({ reload, setReload }) => {
       key: "action",
       render: record => (
         <Space size="middle">
-          <Tooltip title="Editar">
-            <button className="btn edit" onClick={() => openModalEdit(record)}>
-              <EditFilled />
-            </button>
-          </Tooltip>
-          <Tooltip title="Eliminar">
-            <button className="btn delete" onClick={() => openModalDelete(record)}>
-              <DeleteFilled />
-            </button>
-          </Tooltip>
+          <button className="btn edit" onClick={() => openModalEdit(record)}>
+            <EditFilled />
+          </button>
+          <button className="btn delete" onClick={() => openModalDelete(record)}>
+            <DeleteFilled />
+          </button>
         </Space>
       ),
     },

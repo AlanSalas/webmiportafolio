@@ -1,74 +1,101 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router";
+import React, { useState, useEffect } from "react";
+import { Redirect, useHistory } from "react-router";
 import Modal from "../components/Common/Modal";
 import FormExperience from "../components/FormExperience";
 import Fade from "../components/Common/Fade";
-import { Space, Table, Tooltip } from "antd";
+import Delete from "../components/Common/Delete";
+import { Space, Table, message } from "antd";
 import { EditFilled, DeleteFilled } from "@ant-design/icons";
 import useAuth from "../hooks/useAuth";
+import moment from "moment";
+import { getExperiences, deleteExperience } from "../api/experience";
 
-const Experiencies = () => {
+const Experiencies = ({ reload, setReload }) => {
   const { isAuth } = useAuth();
+  const [userId] = useState(localStorage.getItem("userId"));
+  const [data, setData] = useState(null);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [contentModal, setContentModal] = useState(null);
+  const dateFormat = "DD/MM/YYYY";
+  const history = useHistory();
 
-  const openModalEdit = data => {
+  const openModalAdd = () => {
     setIsVisibleModal(true);
-    setTitleModal(`Editar ${data.company}`);
-    setContentModal(<FormExperience key={data.key} />);
+    setTitleModal("Nueva Experiencia");
+    setContentModal(
+      <FormExperience
+        setIsVisibleModal={setIsVisibleModal}
+        setReload={setReload}
+        dateFormat={dateFormat}
+      />
+    );
   };
 
-  const openModalDelete = data => {
+  const openModalEdit = experience => {
     setIsVisibleModal(true);
-    setTitleModal("Delete");
-    setContentModal("Delete");
+    setTitleModal(`Editar ${experience.company}`);
+    setContentModal(
+      <FormExperience
+        key={experience.key}
+        experience={experience}
+        setIsVisibleModal={setIsVisibleModal}
+        setReload={setReload}
+        dateFormat={dateFormat}
+      />
+    );
   };
 
-  const dataSource = [
-    {
-      key: "1",
-      company: "Genotipo",
-      position: "Web Developer",
-      duration: "4 meses",
-    },
-    {
-      key: "2",
-      company: "LearnAla",
-      position: "Web Developer",
-      duration: "4 meses",
-    },
-    {
-      key: "3",
-      company: "Genotipo",
-      position: "Web Developer",
-      duration: "4 meses",
-    },
-    {
-      key: "4",
-      company: "Genotipo",
-      position: "Web Developer",
-      duration: "4 meses",
-    },
-    {
-      key: "5",
-      company: "Genotipo",
-      position: "Web Developer",
-      duration: "4 meses",
-    },
-    {
-      key: "6",
-      company: "Genotipo",
-      position: "Web Developer",
-      duration: "4 meses",
-    },
-    {
-      key: "7",
-      company: "Genotipo",
-      position: "Web Developer Senior Admin Empresas",
-      duration: "4 meses",
-    },
-  ];
+  const handleDelete = async id => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await deleteExperience(token, id);
+      message.success(response.data.message);
+      setIsVisibleModal(false);
+      setReload(true);
+    } catch (err) {
+      history.push("/error/500");
+    }
+  };
+
+  const openModalDelete = experience => {
+    setIsVisibleModal(true);
+    setTitleModal(`Eliminar ${experience.company}`);
+    setContentModal(
+      <Delete
+        setIsVisibleModal={setIsVisibleModal}
+        handleDelete={handleDelete}
+        id={experience.key}
+      />
+    );
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await getExperiences(userId);
+        const experiences = response.data.experiences.map(experience => {
+          return {
+            key: experience._id,
+            company: experience.company,
+            position: experience.position,
+            startDate: experience.startDate,
+            finishDate: experience.finishDate,
+            description: experience.description,
+            duration: moment(experience.startDate, dateFormat)
+              .from(moment(experience.finishDate, dateFormat))
+              .split("hace"),
+          };
+        });
+        setData(experiences);
+      } catch (err) {
+        console.log(err.message);
+        history.push("/error/500");
+      }
+    };
+    getData();
+    setReload(false);
+  }, [reload, setReload, userId, history]);
 
   const columns = [
     {
@@ -92,16 +119,12 @@ const Experiencies = () => {
       key: "action",
       render: record => (
         <Space size="middle">
-          <Tooltip title="Editar">
-            <a className="data__edit" onClick={() => openModalEdit(record)}>
-              <EditFilled />
-            </a>
-          </Tooltip>
-          <Tooltip title="Eliminar">
-            <a className="data__delete" onClick={() => openModalDelete(record)}>
-              <DeleteFilled />
-            </a>
-          </Tooltip>
+          <button className="btn edit" onClick={() => openModalEdit(record)}>
+            <EditFilled />
+          </button>
+          <button className="btn delete" onClick={() => openModalDelete(record)}>
+            <DeleteFilled />
+          </button>
         </Space>
       ),
     },
@@ -115,8 +138,13 @@ const Experiencies = () => {
     <Fade>
       <div className="data">
         <div className="container">
+          <div className="data__add">
+            <button className="button green" onClick={openModalAdd}>
+              Nuevo
+            </button>
+          </div>
           <Table
-            dataSource={dataSource}
+            dataSource={data}
             columns={columns}
             pagination={{ defaultCurrent: 1, defaultPageSize: 5 }}
           />

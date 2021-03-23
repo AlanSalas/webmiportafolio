@@ -121,3 +121,17 @@ export const descriptionRules = [
     message: "Descripción es requerido.",
   },
 ];
+
+export const companyRules = [
+  {
+    required: true,
+    message: "Empresa es requerida.",
+  },
+];
+
+export const dateRules = [
+  {
+    required: true,
+    message: "Fechas son requeridas.",
+  },
+];
