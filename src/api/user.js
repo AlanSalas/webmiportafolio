@@ -38,7 +38,7 @@ export const updateUser = async (avatar, data, token) => {
     formData.append("instagram", data.instagram);
     formData.append("linkedin", data.linkedin);
     formData.append("youtube", data.youtube);
-    if (typeof avatar === "object") {
+    if (avatar && typeof avatar === "object") {
       formData.append("image", avatar.file, avatar.file.name);
     }
 
