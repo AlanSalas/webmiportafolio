@@ -18,6 +18,15 @@ export const getUserData = async id => {
   }
 };
 
+export const getUserByUsername = async username => {
+  try {
+    const response = await API.get(`user-by-username/${username}`);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+};
+
 export const getProfileImage = async (type, image) => {
   try {
     const response = await API.get(`image/${type}/${image}`);
@@ -38,6 +47,7 @@ export const updateUser = async (avatar, data, token) => {
     formData.append("instagram", data.instagram);
     formData.append("linkedin", data.linkedin);
     formData.append("youtube", data.youtube);
+    formData.append("about", data.about);
     if (avatar && typeof avatar === "object") {
       formData.append("image", avatar.file, avatar.file.name);
     }

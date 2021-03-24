@@ -10,6 +10,7 @@ import {
   usernameSocialRules,
   positionRules,
   youtubeChannelRules,
+  descriptionRules,
 } from "../rules/formRules";
 
 const FormEditProfile = ({ userData, setReload, setIsVisibleModal }) => {
@@ -40,6 +41,7 @@ const FormEditProfile = ({ userData, setReload, setIsVisibleModal }) => {
     instagram: form.instagram,
     linkedin: form.linkedin,
     youtube: form.youtube,
+    about: form.about,
   };
 
   const handleChange = e => {
@@ -150,6 +152,18 @@ const FormEditProfile = ({ userData, setReload, setIsVisibleModal }) => {
                 name="youtube"
                 placeholder="Id de tu canal"
                 addonBefore="youtube.com/channel/"
+                onChange={handleChange}
+              />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={24} lg={24}>
+            <Form.Item name="about" rules={descriptionRules} hasFeedback>
+              <Input.TextArea
+                rows={10}
+                maxLength={351}
+                className="input area"
+                name="about"
+                placeholder="Acerca de tí"
                 onChange={handleChange}
               />
             </Form.Item>

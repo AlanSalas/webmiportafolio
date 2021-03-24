@@ -20,6 +20,7 @@ const Profile = ({ reload, setReload }) => {
     linkedin: "",
     youtube: "",
     avatar: "",
+    about: "",
   });
   const [title, setTitle] = useState("");
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -42,6 +43,7 @@ const Profile = ({ reload, setReload }) => {
           linkedin: user.linkedin || "",
           youtube: user.youtube || "",
           avatar: user.avatar || "",
+          about: user.about || "",
         });
       } catch (err) {
         history.push("/error/500");

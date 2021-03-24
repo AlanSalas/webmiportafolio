@@ -40,6 +40,7 @@ const Navbar = ({ reload, setReload }) => {
 const LinksLoggedIn = ({ location, history, logOut, reload, setReload }) => {
   const [userId] = useState(localStorage.getItem("userId"));
   const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [avatar, setAvatar] = useState(null);
 
   const handleLogOut = () => {
@@ -53,6 +54,7 @@ const LinksLoggedIn = ({ location, history, logOut, reload, setReload }) => {
       try {
         const response = await getUserData(userId);
         setName(response.data.user.name);
+        setUsername(response.data.user.username);
         if (response.data.user.avatar) {
           const image = await getProfileImage("users", response.data.user.avatar);
           setAvatar(image.request.responseURL);
@@ -77,8 +79,8 @@ const LinksLoggedIn = ({ location, history, logOut, reload, setReload }) => {
         Dashboard
       </Link>
       <Link
-        to="/:username"
-        className={`navbar__link ${location.pathname === "/:username" ? "active" : ""}`}
+        to={`/${username}`}
+        className={`navbar__link ${location.pathname === `/${username}` ? "active" : ""}`}
       >
         Portafolio
       </Link>

@@ -91,7 +91,7 @@ export const youtubeChannelRules = [
 
 export const urlRules = [
   {
-    pattern: /([--:\w?@%&+~#=]*\.[a-z]{2,4}\/{0,2})((?:[?&](?:\w+)=(?:\w+))+|[--:\w?@%&+~#=]+)?/g,
+    pattern: /(https?:\/\/)([\da-z\.\-\/])+/g,
     message: "Url invalida.",
   },
   {

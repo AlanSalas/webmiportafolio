@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import Avatar from "../components/Common/Avatar";
 import { Row, Col } from "antd";
-import { getUserData, getProfileImage } from "../api/user";
+import { getUserData, getProfileImage, getUserByUsername } from "../api/user";
 import {
   FacebookOutlined,
   TwitterOutlined,
@@ -12,16 +12,23 @@ import {
   MailOutlined,
 } from "@ant-design/icons";
 
-const UserInfo = ({ userId, reload, setReload }) => {
+const UserInfo = ({ username, userId, reload, setReload }) => {
   const [userData, setUserData] = useState({});
   const [avatar, setAvatar] = useState(null);
+  const [error, setError] = useState(false);
+  const [name, setName] = useState("");
   const history = useHistory();
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await getUserData(userId);
+        const response = userId ? await getUserData(userId) : await getUserByUsername(username);
+        if (response.status !== 200) {
+          setError(true);
+          return;
+        }
         setUserData(response.data.user);
+        setName(response.data.user.name);
         if (response.data.user.avatar) {
           const image = await getProfileImage("users", response.data.user.avatar);
           if (image.status === 200) {
@@ -31,20 +38,22 @@ const UserInfo = ({ userId, reload, setReload }) => {
           setAvatar(null);
         }
       } catch (err) {
-        history.push("/error/500");
+        setError(true);
       }
     };
 
     setReload(false);
 
     getData();
-  }, [history, userId, reload, setReload]);
+  }, [history, userId, reload, setReload, username]);
+
+  if (error) return <Redirect to="/error/404" />;
 
   return (
     <>
       <Row justify="center">
         <Col>
-          <Avatar name="Alan" size="9rem" fontSize="3rem" avatar={avatar} />
+          <Avatar name={name} size="9rem" fontSize="3rem" avatar={avatar} />
         </Col>
       </Row>
       <Row justify="center" style={{ marginBottom: "3rem" }}>

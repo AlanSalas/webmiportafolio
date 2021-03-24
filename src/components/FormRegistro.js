@@ -65,7 +65,7 @@ const FormRegistro = () => {
 
   return (
     <div className="form-credentials">
-      <Form onFinish={handleFinish} noValidate>
+      <Form form={form} onFinish={handleFinish} noValidate>
         <Row gutter={[16, 0]}>
           <Col xs={24} sm={24} md={12} lg={12} xl={12}>
             <Form.Item name="name" rules={nameRules} hasFeedback>
