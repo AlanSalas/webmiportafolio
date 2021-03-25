@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, Redirect } from "react-router-dom";
 import Fade from "../components/Common/Fade";
 import UserInfo from "../components/UserInfo";
-import WireframeImg from "../assets/wireframe.png";
 import { Row, Col, Divider } from "antd";
 import { LinkOutlined } from "@ant-design/icons";
 import { getUserByUsername } from "../api/user";
