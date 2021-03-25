@@ -12,6 +12,11 @@ const Navbar = ({ reload, setReload }) => {
   const location = useLocation();
   const history = useHistory();
 
+  const handleOpenMenuMobile = () => {
+    const links = document.querySelector(".navbar__links");
+    links.classList.toggle("visible");
+  };
+
   return (
     <div className="navbar">
       <div className="navbar__container">
@@ -20,6 +25,7 @@ const Navbar = ({ reload, setReload }) => {
         </Link>
         {isAuth ? (
           <LinksLoggedIn
+            handleOpenMenuMobile={handleOpenMenuMobile}
             location={location}
             history={history}
             logOut={logOut}
@@ -29,7 +35,7 @@ const Navbar = ({ reload, setReload }) => {
         ) : (
           <LinksLoggedOut location={location} />
         )}
-        <div className="navbar__hamburger-menu">
+        <div className="navbar__hamburger-menu" onClick={handleOpenMenuMobile}>
           <MenuOutlined />
         </div>
       </div>
@@ -37,7 +43,7 @@ const Navbar = ({ reload, setReload }) => {
   );
 };
 
-const LinksLoggedIn = ({ location, history, logOut, reload, setReload }) => {
+const LinksLoggedIn = ({ handleOpenMenuMobile, location, history, logOut, reload, setReload }) => {
   const [userId] = useState(localStorage.getItem("userId"));
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
@@ -75,16 +81,18 @@ const LinksLoggedIn = ({ location, history, logOut, reload, setReload }) => {
       <Link
         to="/dashboard"
         className={`navbar__link ${location.pathname === "/dashboard" ? "active" : ""}`}
+        onClick={handleOpenMenuMobile}
       >
         Dashboard
       </Link>
       <Link
         to={`/${username}`}
         className={`navbar__link ${location.pathname === `/${username}` ? "active" : ""}`}
+        onClick={handleOpenMenuMobile}
       >
         Portafolio
       </Link>
-      <Link to="/perfil" className={"navbar__link"}>
+      <Link to="/perfil" className={"navbar__link"} onClick={handleOpenMenuMobile}>
         <Avatar name={name} size="2rem" fontSize="1rem" avatar={avatar} />
       </Link>
       <PoweroffOutlined className="navbar__link logout" onClick={handleLogOut} />
