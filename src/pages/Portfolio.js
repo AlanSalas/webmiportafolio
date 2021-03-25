@@ -84,7 +84,7 @@ const Portfolio = ({ reload, setReload }) => {
             <Divider orientation="left">Proyectos</Divider>
             {projects ? (
               projects.map(project => (
-                <Col xs={24} md={12} lg={8} xl={8}>
+                <Col key={project._id} xs={24} md={12} lg={8} xl={8}>
                   <div className="portfolio__project-card">
                     <img
                       className="portfolio__project-card-img"

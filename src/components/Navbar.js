@@ -33,7 +33,7 @@ const Navbar = ({ reload, setReload }) => {
             setReload={setReload}
           />
         ) : (
-          <LinksLoggedOut location={location} />
+          <LinksLoggedOut handleOpenMenuMobile={handleOpenMenuMobile} location={location} />
         )}
         <div className="navbar__hamburger-menu" onClick={handleOpenMenuMobile}>
           <MenuOutlined />
@@ -100,18 +100,20 @@ const LinksLoggedIn = ({ handleOpenMenuMobile, location, history, logOut, reload
   );
 };
 
-const LinksLoggedOut = ({ location }) => {
+const LinksLoggedOut = ({ handleOpenMenuMobile, location }) => {
   return (
     <div className="navbar__links">
       <Link
         to="/login"
         className={`navbar__link ${location.pathname === "/login" ? "active" : ""}`}
+        onClick={handleOpenMenuMobile}
       >
         Iniciar Sesión
       </Link>
       <Link
         to="/registro"
         className={`navbar__link ${location.pathname === "/registro" ? "active" : ""}`}
+        onClick={handleOpenMenuMobile}
       >
         Registrarse
       </Link>
