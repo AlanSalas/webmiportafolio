@@ -88,7 +88,7 @@ const Portfolio = ({ reload, setReload }) => {
                   <div className="portfolio__project-card">
                     <img
                       className="portfolio__project-card-img"
-                      src={`http://localhost:9292/api/image/projects/${project.image}`}
+                      src={`https://webmiportafolio-api.herokuapp.com/api/image/projects/${project.image}`}
                       alt={`${project.name}`}
                     />
                     <div className="portfolio__project-card-detail">
