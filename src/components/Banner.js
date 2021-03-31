@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Row, Col } from "antd";
 import Resume from "../assets/resume.svg";
 
@@ -17,7 +18,9 @@ const Banner = () => {
               </h1>
             </Row>
             <Row style={{ marginBottom: "2rem" }}>
-              <button className="button">Registrarse</button>
+              <Link className="button" to="/registro">
+                Registrarse
+              </Link>
             </Row>
           </Col>
           <Col sm={24} md={24} lg={11} xl={12}>
