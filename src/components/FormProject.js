@@ -63,6 +63,9 @@ const FormProject = ({ project, setIsVisibleModal, setReload }) => {
         setLoading(false);
         setIsVisibleModal(false);
         setReload(true);
+      } else if (response.status === 400) {
+        message.error(response.data.err);
+        setLoading(false);
       }
     } catch (err) {
       setLoading(false);
@@ -86,6 +89,9 @@ const FormProject = ({ project, setIsVisibleModal, setReload }) => {
           setIsVisibleModal(false);
           setReload(true);
           handleReset();
+        } else if (response.status === 400) {
+          message.error(response.data.err);
+          setLoading(false);
         }
       }
     } catch (err) {
@@ -97,6 +103,7 @@ const FormProject = ({ project, setIsVisibleModal, setReload }) => {
   return (
     <div className="data__form">
       <UploadImage avatar={image} setAvatar={setImage} />
+      <p>La imagen debe ser menor de 4MB.</p>
       <Form
         form={form}
         onFinish={project ? onFinishUpdate : onFinishAdd}

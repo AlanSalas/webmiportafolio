@@ -50,7 +50,7 @@ const ValidToken = ({ token }) => {
 
   return (
     <>
-      <CheckOutlined className="icon green" />
+      <CheckOutlined className="icon activate" />
       <h1>Activa tu cuenta</h1>
       <button className="button" onClick={handleActivate}>
         Activar
@@ -79,7 +79,7 @@ const InvalidToken = ({ token }) => {
 
   return (
     <>
-      <CloseOutlined className="icon red" />
+      <CloseOutlined className="icon error" />
       <h1>Este link ha expirado</h1>
       <button className="button" onClick={handleSendEmail}>
         Generar nuevo link

@@ -61,6 +61,9 @@ const FormEditProfile = ({ userData, setReload, setIsVisibleModal }) => {
         setLoading(false);
         setIsVisibleModal(false);
         setReload(true);
+      } else if (response.status === 400) {
+        message.error(response.data.err);
+        setLoading(false);
       }
     } catch (err) {
       setLoading(false);
@@ -71,6 +74,7 @@ const FormEditProfile = ({ userData, setReload, setIsVisibleModal }) => {
   return (
     <div className="profile__form">
       <UploadImage className="upload-image" avatar={avatar} setAvatar={setAvatar} />
+      <p>La imagen debe ser menor de 4MB.</p>
       <Form onFinish={onFinish} initialValues={initialValues} noValidate>
         <Row>
           <Col xs={24} md={24} lg={24}>
